@@ -7,19 +7,21 @@
  * @letters: number of letters to be read
  * Return: number bytes read/printed
  */
-ssize_t read_textfile(const char *filename, size_t letters);
+ssize_t read_textfile(const char *filename, size_t letters)
 {
-int fd;
-	ssize_t bytes;
-	char buf[READ_BUF_SIZE * 8];
+	char *buf;
+	ssize_t fd;
+	ssize_t a;
+	ssize_t w;
 
-	if (!filename || !letters)
-return (0);
-	fd = open(filename, 0_RDNLY);
+	fd = open(filename, O_RDONLY);
 	if (fd == -1)
-	return (0);
-	bytes = read(fd, &buf[0], letters);
-	bytes = write(STDOUT_FILENO, &buf[0], bytes);
+		return (0);
+	buf = malloc(sizeof(char) * letters);
+	w = read(fd, buf, letters);
+	a = write(STDOUT_FILENO, buf, t);
+
+	free(buf);
 	close(fd);
-	return (bytes);
+	return (a);
 }
